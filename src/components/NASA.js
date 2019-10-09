@@ -4,10 +4,22 @@ import "./NASA.css";
 
 export default function NASA() {
 
+// date variables for random
 let randomDays = Math.random()*365;
 let today = new Date();
 let showDate = new Date();
 showDate.setDate( today.getDate() - randomDays);
+
+let dateDropdownArray = [];
+for(let i = 0; i < 365; i++) {
+  let dateDropdown = new Date();
+  dateDropdown.setDate(dateDropdown.getDate()-i);
+  // console.log('test', dateDropdown);
+  dateDropdownArray.push(dateDropdown.toISOString().substr(0, 10))
+}
+
+console.log('test', dateDropdownArray);
+
 
 const [image, setImage] = useState({ 
   date: '',
@@ -19,9 +31,9 @@ const [image, setImage] = useState({
   url: ''
 });
 const [day, setDay] = useState(today.toISOString().substr(0, 10));
-console.log('day:', day);
+// console.log('day:', day);
 // console.log('random # of days', randomDays);
-console.log('today ', showDate.toISOString().substr(0, 10));
+// console.log('today ', showDate.toISOString().substr(0, 10));
 
 useEffect(() => {
   axios
@@ -40,7 +52,14 @@ return (
 <>
 <nav>
   <h1>🚀NASA's photo of the day</h1>
+  
   <button class='random' onClick={() => setDay(showDate.toISOString().substr(0, 10))}>Random Image</button>
+  {/* <form id="dropdown">
+    <select id="selectNumber">
+      <option>Choose a number</option>
+    </select>
+  </form> */}
+
 </nav>
 <div class='container'>
   
