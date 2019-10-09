@@ -3,6 +3,11 @@ import axios from "axios";
 
 export default function NASA() {
 
+let randomDays = Math.random()*365;
+let today = new Date();
+let showDate = new Date();
+showDate.setDate( today.getDate() - randomDays);
+
 const [image, setImage] = useState({ 
   date: '',
   explanation: '',
@@ -12,10 +17,14 @@ const [image, setImage] = useState({
   title: '',
   url: ''
 });
+const [day, setDay] = useState(today.toISOString().substr(0, 10));
+console.log('day:', day);
+// console.log('random # of days', randomDays);
+console.log('today ', showDate.toISOString().substr(0, 10));
 
 useEffect(() => {
   axios
-    .get(`https://api.nasa.gov/planetary/apod?api_key=GuAFz5FsJdXMVKqEmLqlmcb3Pv9RW19JNcDovlG9`)
+    .get(`https://api.nasa.gov/planetary/apod?api_key=GuAFz5FsJdXMVKqEmLqlmcb3Pv9RW19JNcDovlG9&date=${day}`)
     .then(response => {
       console.log("NASA:", response.data);
       setImage(response.data);
@@ -24,10 +33,11 @@ useEffect(() => {
     .catch(error => {
       console.log("The data was not returned", error);
     });
-}, []);
+}, [day]);
 
 return (
 <div>
+  <button onClick={() => setDay(showDate.toISOString().substr(0, 10))}>Random Image</button>
   <h1>🚀NASA's photo of the day</h1>
   <h2 className="title">{image.title}</h2>
   <img src={image.url}/>
