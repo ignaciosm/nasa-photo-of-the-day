@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import "./NASA.css";
 
 export default function NASA() {
 
@@ -36,12 +37,21 @@ useEffect(() => {
 }, [day]);
 
 return (
-<div>
-  <button onClick={() => setDay(showDate.toISOString().substr(0, 10))}>Random Image</button>
+<>
+<nav>
   <h1>🚀NASA's photo of the day</h1>
+  <button class='random' onClick={() => setDay(showDate.toISOString().substr(0, 10))}>Random Image</button>
+</nav>
+<div class='container'>
+  
+  
   <h2 className="title">{image.title}</h2>
-  <img src={image.url}/>
-  <p>{image.explanation}</p>
+  <div className="img-container">
+    <img class='image' src={image.url}/>
+    <p class='description'>{image.explanation}</p>
+  </div>
+  
 </div>
+</>
 );
 }
