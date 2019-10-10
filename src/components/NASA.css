@@ -30,3 +30,17 @@ nav {
 .img-container {
   display: flex;
 }
+
+ /* customize Bootstrap */
+
+.card {
+ flex-direction: row;
+}
+
+.card img {
+  width: 39%;
+}
+
+.card-body {
+  width: 59%;
+}

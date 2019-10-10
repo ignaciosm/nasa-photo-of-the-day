@@ -1,6 +1,32 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./NASA.css";
+import { Button, Card, CardImg, CardText, CardBody,
+  CardTitle, CardSubtitle,
+  Navbar,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink,
+  ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import styled from 'styled-components'
+
+const Title = styled.h1 `
+  color: blue;
+`;
+
+const Mynav = styled.nav `
+  width: 100% !important;
+`;
+
+const Imgtitle = styled.h2 `
+  font-size: 20px;
+  font-weight: bold;
+
+  &:hover {
+  ${props => (props.type === "hovered" ? `background: black; color: white` : null )}
+  }
+`;
 
 export default function NASA() {
 
@@ -30,6 +56,7 @@ const [image, setImage] = useState({
   title: '',
   url: ''
 });
+
 const [day, setDay] = useState(today.toISOString().substr(0, 10));
 // console.log('day:', day);
 // console.log('random # of days', randomDays);
@@ -50,25 +77,38 @@ useEffect(() => {
 
 return (
 <>
-<nav>
-  <h1>🚀NASA's photo of the day</h1>
+<Mynav>
   
-  <button class='random' onClick={() => setDay(showDate.toISOString().substr(0, 10))}>Random Image</button>
+  <Navbar color="light" light expand="md">
+    <NavbarBrand href="/"><Title>🚀NASA's photo of the day</Title></NavbarBrand>
+      <Nav className="ml-auto" navbar>
+        <NavItem>
+          <NavLink>
+            <Button color="warning" onClick={() => setDay(showDate.toISOString().substr(0, 10))}>Random Image</Button>
+          </NavLink>
+        </NavItem>
+      </Nav>
+  </Navbar>
+  
+  
   {/* <form id="dropdown">
     <select id="selectNumber">
       <option>Choose a number</option>
     </select>
   </form> */}
 
-</nav>
+</Mynav>
 <div class='container'>
   
-  
-  <h2 className="title">{image.title}</h2>
-  <div className="img-container">
-    <img class='image' src={image.url}/>
-    <p class='description'>{image.explanation}</p>
-  </div>
+  <Card>
+    <CardImg top width="100%" src={image.url} alt={image.title} />
+    <CardBody>
+      <Imgtitle type="hovered">{image.title}</Imgtitle>
+      <CardText>{image.explanation}</CardText>
+      <CardSubtitle>{image.date}</CardSubtitle>
+    </CardBody>
+  </Card>
+ 
   
 </div>
 </>

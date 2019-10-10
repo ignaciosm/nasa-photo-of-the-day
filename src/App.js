@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import NASA from './components/NASA';
-// import axios from "axios";
+import axios from "axios";
 import "./App.css";
 
 function App() {
@@ -22,7 +22,6 @@ function App() {
         Read through the instructions in the README.md file to build your NASA
         app! Have fun 🚀!
       </p> */}
-
       <div>
         <NASA />
       </div>
